@@ -54,8 +54,14 @@ fun Route.admin() {
 
         get("/admin/callback") {
             val principal: OAuthAccessTokenResponse.OAuth2? = call.principal()
-            call.sessions.set(GoogleOauthUserSession(principal?.accessToken.toString()))
-            call.respondRedirect("/admin/hello")
+
+            if (principal == null) {
+                call.respondText(text = "User Not Found", contentType = ContentType.Text.Plain, status = HttpStatusCode.NotFound)
+                return@get
+            }
+
+            call.sessions.set(GoogleOauthUserSession(principal.accessToken))
+            call.respondRedirect("/admin/dashboard")
         }
     }
     get("/admin/") {
@@ -67,7 +73,7 @@ fun Route.admin() {
             }
         }
     }
-    get("/admin/hello") {
+    get("/admin/dashboard") {
         val userSession: GoogleOauthUserSession? = call.sessions.get<GoogleOauthUserSession>()
 
         if (userSession == null) {

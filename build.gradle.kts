@@ -19,7 +19,7 @@ object Settings {
         const val hikariCP = "5.0.0"
         const val kodein = "7.7.0"
         const val konform = "0.3.0"
-        const val kotlin = "1.5.21"
+        const val kotlin = "1.4.31"
         const val kotlinCoroutines = "1.5.1"
         const val kotlinImmutable = "0.3.4"
         const val ktor = "1.6.2"
@@ -121,5 +121,14 @@ tasks {
 
     test {
         testLogging.showExceptions = true
+    }
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.jetbrains.kotlin" && requested.version != Settings.Versions.kotlin) {
+            useVersion(Settings.Versions.kotlin)
+            because("standardizing kotlin versions")
+        }
     }
 }
