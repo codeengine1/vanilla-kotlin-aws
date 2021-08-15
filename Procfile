@@ -1,0 +1,1 @@
+web: java -Xms5G -Xmx7G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:ParallelGCThreads=20 -XX:ConcGCThreads=5 -XX:InitiatingHeapOccupancyPercent=70 -Dcom.sun.management.jmxremote.local.only=false -jar ./build/libs/application.jar

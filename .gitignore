@@ -1,0 +1,17 @@
+*.class
+target
+/bin/
+/.settings/
+.project
+.classpath
+.gradle
+build/
+.idea
+.platform
+*.iml
+out
+gradle
+gradlew
+gradlew.bat
+.DS_Store
+*.DS_Store

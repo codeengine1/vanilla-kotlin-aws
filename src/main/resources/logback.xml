@@ -1,0 +1,22 @@
+<configuration>
+
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="async" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="console" />
+        <includeCallerData>true</includeCallerData>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="async"/>
+    </root>
+
+    <logger name="Application" level="DEBUG"/>
+    <logger name="org.eclipse.jetty" level="INFO"/>
+    <logger name="io.netty" level="INFO"/>
+</configuration>
