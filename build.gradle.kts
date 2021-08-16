@@ -16,6 +16,7 @@ object Settings {
     object Versions {
         const val amazonCorrettoCryptoProvider = "1.6.1"
         const val dropWizard = "4.2.3"
+        const val exposed = "0.33.1"
         const val hikariCP = "5.0.0"
         const val kodein = "7.7.0"
         const val konform = "0.3.0"
@@ -66,6 +67,17 @@ dependencies {
     implementation("org.kodein.di:kodein-di-framework-ktor-server-controller-jvm:${Settings.Versions.kodein}")
     implementation("org.kodein.di:kodein-di-conf-jvm:${Settings.Versions.kodein}")
 
+    // hikari cp
+    implementation("com.zaxxer:HikariCP:${Settings.Versions.hikariCP}")
+
+    // mysql driver
+    implementation("mysql:mysql-connector-java:${Settings.Versions.mysqlConnector}")
+
+    // exposed
+    implementation("org.jetbrains.exposed:exposed-core:${Settings.Versions.exposed}")
+    implementation("org.jetbrains.exposed:exposed-dao:${Settings.Versions.exposed}")
+    implementation("org.jetbrains.exposed:exposed-java-time:${Settings.Versions.exposed}")
+
     // dropwizard metrics
     implementation("io.dropwizard.metrics:metrics-core:${Settings.Versions.dropWizard}")
     implementation("io.dropwizard.metrics:metrics-jmx:${Settings.Versions.dropWizard}")
@@ -76,12 +88,6 @@ dependencies {
 
     // konform validation
     implementation("io.konform:konform-jvm:${Settings.Versions.konform}")
-
-    // hikari cp
-    implementation("com.zaxxer:HikariCP:${Settings.Versions.hikariCP}")
-
-    // mysql driver
-    implementation("mysql:mysql-connector-java:${Settings.Versions.mysqlConnector}")
 
     // coretto crypto
     implementation("software.amazon.cryptools:AmazonCorrettoCryptoProvider:${Settings.Versions.amazonCorrettoCryptoProvider}")
@@ -121,14 +127,5 @@ tasks {
 
     test {
         testLogging.showExceptions = true
-    }
-}
-
-configurations.all {
-    resolutionStrategy.eachDependency {
-        if (requested.group == "org.jetbrains.kotlin" && requested.version != Settings.Versions.kotlin) {
-            useVersion(Settings.Versions.kotlin)
-            because("standardizing kotlin versions")
-        }
     }
 }
